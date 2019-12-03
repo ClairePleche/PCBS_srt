@@ -23,4 +23,4 @@ Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance
 - longer ISI easier than short
 - but small spatial distance might reduce short ISI difficulty
 
-! [This a schema of the design] (https://github.com/clairepleche/PCBS_srt/blob/master/testdesign.PNG)
+![This a schema of the design](https://github.com/clairepleche/PCBS_srt/blob/master/testdesign.PNG)
