@@ -1,6 +1,6 @@
 # Is there a link between temporal and spatial distance in a sequence learning/motor task?
 
-Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance separating the four possible locations for the stimuli and the temporal distance (ISI). I would like to see if the motor performance is higher when the two distances correlate (close in space and in time).
+Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance separating the four possible locations for the stimuli and the temporal distance (ISI). I would like to see if same condition facilitates performance 
 
 ## METHODS
 
@@ -17,6 +17,7 @@ Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance
 1. Reaction times
 
 2. Accuracy
+
 3. Expected results;
 - for every condition of distance, RTs should decrease throughout blocks and longer RT when random block inserted/Accuracy should increase
 - longer ISI easier than short
