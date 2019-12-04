@@ -3,7 +3,7 @@
 Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance separating the four possible locations for the stimuli and the temporal distance (ISI). I would like to see if same condition (e.g. short ISI and spatially close stimuli) facilitates performance
 
 ## METHODS
-![This a schema of the design](PCBS_srt/designtasktest.PNG)
+![This a schema of the design](designtasktest.PNG)
 ### Task
 - 4 aligned red squares one of them becomes another color(target) following a sequence (defined or random);
 - The target is displayed until click from participant
