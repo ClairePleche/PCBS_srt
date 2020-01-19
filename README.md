@@ -14,13 +14,6 @@ Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance
 - In the middle of the 8 sequence-blocks, 2 random position blocks are inserted to control for habituation effect
 - 4 groups of participants for the 4 condition (short/short, short/long, long/short, long/long)
 
-### Analysis
-I will analyse RTs and accuracy scores, between conditions but also throughout the experiment to check if 1) the sequence was learned 2) spatial or temporal distance has an influence on the performance 3) if both interact
-
-Expected/hypothesized results;
-- for every condition of distance, RTs should decrease throughout blocks and longer RT when random block inserted/Accuracy should increase if the sequence is learned
-- longer ISI easier should be easier than short
-- small spatial distance might reduce short ISI difficulty
 
 ### Script Explanation
 #### Load packages, stimuli
