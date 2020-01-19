@@ -3,7 +3,7 @@
 Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance separating the four possible locations for the stimuli and the temporal distance (ISI). This task would allows to see if 1) each kind of distance influences sequence learning 2) if the same condition (e.g. short ISI and spatially close stimuli) facilitates performance.
 
 ## METHODS
-![This a schema of the design](designtasktest.PNG)
+![This a schema of the design](Task_Design.PNG)
 ### Task
 - 4 aligned red squares one of them becomes another color(target) following a sequence (defined or random);
 - The target is displayed until click from participant
@@ -71,10 +71,10 @@ def COND(event):
     return event.type == pygame.KEYDOWN and (event.key==pygame.K_a or event.key==pygame.K_d or event.key==pygame.K_k or event.key==pygame.K_SEMICOLON )
 
 ```
-##### Practice Block
--> I had to define what the practice block would be. I created a panda data frame to store the results. Then created 'i' and assigned it to 0 to keep track of the number of trial (click/event). *'i' will be between 0 and 9 (so 10 values) in the practice blocks just as a practical thing (see later TEST blocks, in those it will allow to check for the number of times the 10 item sequence is repeated, and is useful for the analysis of the data to check progression over number of repetition)*
+##### RANDOM (Practice and Control) Blocks
+-> I had to define what the practice and control blocks would be. I created a panda data frame to store the results. Then created 'i' and assigned it to 0 to keep track of the number of trial (click/event). *'i' will be between 0 and 9 (so 10 values) in the practice blocks just as a practical thing (see later SEQUENCE blocks, in those it will allow to check for the number of times the 10 item sequence is repeated, and is useful for the analysis of the data to check progression over number of repetition)*
 ```
-def PRACTICE_BLOCK(N_BLOCK,tps):
+def RANDOM_BLOCK(N_BLOCK,tps):
     Results = pandas.DataFrame()
     i=0
     ...
@@ -146,8 +146,8 @@ carry_on=True
 -> The image is then updated and the function returns the dataframe Results.
 
 
-##### Practice Block
--> I created a function for the Testing blocks that is similar to the practice blocks' (also used for random blocks) one.
+##### SEQUENCE (Testing) Blocks
+-> I created a function for the Testing blocks that is similar to the RANDOM blocks' (also used for random blocks) one.
 -> It differs as the choice of the picture is not made randomly but follows the order specified in Seq1
 ```
 
@@ -187,8 +187,26 @@ def PAUSE_click():
 ```
 
 ##### Instructions definition
+-> I Created a function that is similar to the one for pauses but the pic displayed here containes the instructions.
+```
 
-#### RUN
+def PAUSE_instructions():
+    #WHITE SCREEN
+    window.blit(pic_INSTRUCTIONS, (0,0))
+
+    pygame.display.flip()
+
+    carry_on=True
+    while carry_on:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                carry_on=False
+        pygame.display.flip()
+        clock.tick(100)
+
+```
+
+#### RUN MAIN PROGRAM
 -> First create a dataframe with the right columns: number of block, trial, correct answer, key pressed, reaction time, speed.
 ```
 
@@ -196,11 +214,29 @@ Results = pandas.DataFrame(columns=['BLOCK','TRIAL','CORRECT_ANS','KEY_PRESSED',
 
 ```
 -> I created an other separate file with a function to set up a visual interface to select the number of participant as well as the temporal and spatial distance. *SEE DESCRIPTION OF MENU INTERFACE*
-SAY WHAT MENU DOES HERE
+The output of the MENU_SRT function is displayed. The two speed options are defined in Speeds in seconds. in Subject, speed can be 0 or 1 and this is used to then index the value of Speeds that is used, thisvalue is stored in tps.
+In Subject, the column close_spaced contains either 1 or 2. If the value is 1 then close_pics (short spatial distance) will be used, if the value is 2 then spaced_pics will be used.
+```
+
+Subject = menu.MENU_SRT(window)
+
+Speeds = (0.65, 0.95)
+
+tps= Speeds[Subject['speed'][0]]
 
 
--> The instructions screen is presented to the participants
-INSERT CODE HERE AFTER DONE
+if Subject['close_spaced'][0]==1:
+    pics = Close_pics
+else:
+    pics = Spaced_pics
+
+```
+
+-> The instructions screen is presented to the participants by calling the function PAUSE_instructions defined previously
+```
+PAUSE_instructions()
+
+```
 
 -> After the instructions the task starts. I created a list named Blocks that can contain 1s and 2s. 1s corresponds to random blocks and 2s to the specific sequence/testing blocks. Here we have 2 practice blocks, 4 seq blocks, 2 random blocks and 4 seq blocks so blocks is (1,1,2,2,2,2,1,1,2,2,2,2).
 
@@ -230,15 +266,15 @@ for bk in Blocks:
 pygame.quit()
 
 ```
--> The Results file and the Subject file created from the menu are saved into csv files.
+-> The Results file and the Subject file created from the menu are saved into csv files in a data file. Each file is named from the number of the participant (entered in the menu) and then the tyoe (results or suject).
 ```
 
-Results.to_csv(str(Subject['ID_subj'][0])+'_Results'+'.csv',sep=';')
-Subject.to_csv(str(Subject['ID_subj'][0])+'_Subject.csv',sep=';')
+Results.to_csv('C:\\Users\\Claire PLECHE\\PCBS_srt.git\\data\\'+str(Subject['ID_subj'][0])+'_Results'+'.csv',sep=';')
+Subject.to_csv('C:\\Users\\Claire PLECHE\\PCBS_srt.git\\data\\'+str(Subject['ID_subj'][0])+'_Subject.csv',sep=';')
 
 ```
-#### Menu Interface
--> I created a function that displays a menu in order to enter the Number of the participant, choose the temporal and spatial conditions. It's a general function with 3 embedded functions.
+#### MENU INTERFACE
+-> I needed a function that displays a menu in order to enter the Number of the participant, choose the temporal and spatial conditions. It's a general function with 3 embedded functions.
 -> I started by loading images I created with the various choices highlited in blue ('close vs spaced' and 'fast vs slow')
 
 ```
@@ -292,4 +328,73 @@ def MENU_SRT(window):
         return str(id)
 
 ```
--> The second embedded function allows to choose between close or spaced pics.
+-> The second embedded function allows to choose between close or spaced pics. The 'default' choice takes the value 1 and corresponds to the selection of close_pics(located on the left, the picture with 'close' highlited in blue). If the experimenter press on return then it is selected. However, the experimenter can press the right arrow key which will display the picture in which 'spaced' is highlighted in blue. The exeperimenter can also go back to 'close' by pressing on the left key. This can alternate indefinitely until the experimenter presses on 'Return' to select the spatial distance. Then it moves on to the other menu, to select the display time.
+```
+
+    def MENU1():
+        #WHITE SCREEN
+        choice = 1
+        window.blit(pic_close, (0,0))
+
+        pygame.display.flip()
+
+        carry_on=True
+        while carry_on:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_RIGHT:
+                    window.blit(pic_spaced, (0,0))
+                    pygame.display.flip()
+                    choice=2
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_LEFT:
+                    window.blit(pic_close, (0,0))
+                    pygame.display.flip()
+                    choice=1
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                    carry_on=False
+            pygame.display.flip()
+            clock.tick(100)
+
+        return choice
+
+```
+-> The function to choose between fast or slow display duration (0,65 or 0,95) is similar to the previous one. However here the default value of choice is 0 which corresponds to the fast condition. When choice equals 1, then slow condition is selected.
+
+```
+
+    def MENU2():
+        #WHITE SCREEN
+        choice = 0
+        window.blit(pic_fast, (0,0))
+
+        pygame.display.flip()
+
+        carry_on=True
+        while carry_on:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_RIGHT:
+                    window.blit(pic_slow, (0,0))
+                    pygame.display.flip()
+                    choice=1
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_LEFT:
+                    window.blit(pic_fast, (0,0))
+                    pygame.display.flip()
+                    choice=0
+                if event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                    carry_on=False
+            pygame.display.flip()
+            clock.tick(100)
+
+        return choice
+
+```
+-> The last embedded function creates a data frame with 3 columns: ID_Subj, close_spaced and speed. It then fills this data frame with the output of each of the three previous functions.
+```
+
+    def RUN_menu():
+        Menu_Choices= pandas.DataFrame(columns=['ID_subj','close_spaced','speed'])
+        Menu_Choices= Menu_Choices.append(  {'ID_subj':id_subject(),'close_spaced':MENU1(),'speed':MENU2()}, ignore_index=True)
+        return Menu_Choices
+
+    return RUN_menu()
+
+```
