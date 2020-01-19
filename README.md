@@ -409,4 +409,4 @@ def MENU_SRT(window):
 
 ```
 ## Previous programming experience
--> I had previously used R a little bit, to analyze behavioural data. I also used a little bit Matlab for data analysis as well. It as the first time that I programmed an experiment. 
+-> I had previously used R a little bit, to analyze behavioural data. I also used a little bit Matlab for data analysis as well. It was the first time that I programmed an experiment and also the first time that I used Python.  
