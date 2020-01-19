@@ -2,7 +2,7 @@
 """
 Created on Tue Jan  7 21:15:02 2020
 
-@author: Claire PLECHE
+@author: Claire PLECHE <plecheclaire@gmail.com>
 """
 # !pip install pygame
 
@@ -219,7 +219,7 @@ PAUSE_instructions()
 #DEFINE order and number of random + sequence blocks
 Blocks = (1,1,2,2,2,2,1,1,2,2,2,2)
 
-N_rep=2 ### CHOOSE the number of time the 1Oitem sequence(or random) is going to be repeated BY BLOCK
+N_rep=8 ### CHOOSE the number of time the 1Oitem sequence(or random) is going to be repeated BY BLOCK
 n_block=1 #k tarverse block de 1 à 12
 
 for bk in Blocks:
