@@ -4,15 +4,19 @@ Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance
 
 ## FILES CONTAINED IN THE REPOSITORY:
 -> This document (READ ME) that explains the task and the script
+
 -> The script 
+
 -> A stimuli file with:
       - 4 pictures for the 2 menus (choice of space between circles on the screen and choice of display duration for each picture)
       - 2 pictures for the Instructions at the beginning of the task and the pauses between blocks
       - 8 pictures (1 for each location and each spatial distance location)
       - The menu script
+      
 -> A data file where is stored:
       - 4 Results dataframes for 4 participants. Each had one condition out of the 4 (short/short, short/long, long/short, long/long). 
       - 4 Subject dataframes for the 4 participants. The number of the participant, the choice of spatial distance and the choice of display duration is written in it.
+      
 *The data files contain the data for a shorter version of the task. In this version, only 1 practice block happens followed by 2 testing blocks, then 1 control block and 2 testing blocks again. Each block had 20 buttons presses instead of 80*
 
 ## METHODS
