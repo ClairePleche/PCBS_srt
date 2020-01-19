@@ -2,17 +2,30 @@
 
 Using a SRT (Serial Reaction Time) task, I want to modulate the spatial distance separating the four possible locations for the stimuli and the temporal distance (ISI). This task would allows to see if 1) each kind of distance influences sequence learning 2) if the same condition (e.g. short ISI and spatially close stimuli) facilitates performance.
 
+## FILES CONTAINED IN THE REPOSITORY:
+-> This document (READ ME) that explains the task and the script
+-> The script 
+-> A stimuli file with:
+      - 4 pictures for the 2 menus (choice of space between circles on the screen and choice of display duration for each picture)
+      - 2 pictures for the Instructions at the beginning of the task and the pauses between blocks
+      - 8 pictures (1 for each location and each spatial distance location)
+      - The menu script
+-> A data file where is stored:
+      - 4 Results dataframes for 4 participants. Each had one condition out of the 4 (short/short, short/long, long/short, long/long). 
+      - 4 Subject dataframes for the 4 participants. The number of the participant, the choice of spatial distance and the choice of display duration is written in it.
+*The data files contain the data for a shorter version of the task. In this version, only 1 practice block happens followed by 2 testing blocks, then 1 control block and 2 testing blocks again. Each block had 20 buttons presses instead of 80*
+
 ## METHODS
 ![This a schema of the design](Task_Design.PNG)
 ### Task
-- 4 aligned red squares one of them becomes another color(target) following a sequence (defined or random);
-- The target is displayed until click from participant
+- 4 aligned red circles one of them becomes another color(blue, target) following a sequence (defined or random)
 - Display time is either of 650 ms (fast, short temporal distance) or 950 ms (slow, big temporal distance)
-- The squares will be close together or more space on the screen
+- The target is displayed according to the display time or until the participant presses on a key
+- The squares will be close together or more spaced on the screen
 - Stimuli either follow a 10-item sequence or are randomly displayed *(without two consecutive targets at the same location)*
 - 12 Blocks including 2 training-blocks at the beginning
 - In the middle of the 8 sequence-blocks, 2 random position blocks are inserted to control for habituation effect
-- 4 groups of participants for the 4 condition (short/short, short/long, long/short, long/long)
+- 4 groups of participants required for the 4 condition (short/short, short/long, long/short, long/long)
 
 
 ### Script Explanation
@@ -44,7 +57,7 @@ pic_pause = pygame.image.load('Inputs/pause.png')
 pic_pause= pygame.transform.smoothscale(pic_pause,(width,height))
 
 ```
-#### Task itself
+#### TASK
 -> I initialized pygame, set the display mode to fullscreen with a white background and launched the Clock to get the time (useful to then calculate reaction times).
 ```
 pygame.init()
@@ -160,7 +173,7 @@ if T1-T0>tps and i< len(Seq1):
 ```
 
 ##### Pauses
--> Since the task can be exhausting, a break is offered to participants after each block (100 clicks).I thus created a function for pauses that displays the pic loaded before telling the participant it's a pause and they can press to continue. The picture is displayed until the participants presses the key 'return'.
+-> Since the task can be exhausting, a break is offered to participants after each block (80 clicks).I thus created a function for pauses that displays the pic loaded before telling the participant it's a pause and they can press to continue. The picture is displayed until the participants presses the key 'return'.
 ```
 
 def PAUSE_click():
@@ -199,15 +212,15 @@ def PAUSE_instructions():
 
 ```
 
-#### RUN MAIN PROGRAM
+####       RUN MAIN PROGRAM      
 -> First create a dataframe with the right columns: number of block, trial, correct answer, key pressed, reaction time, speed.
 ```
 
 Results = pandas.DataFrame(columns=['BLOCK','TRIAL','CORRECT_ANS','KEY_PRESSED','TIME','SPEED'])
 
 ```
--> I created an other separate file with a function to set up a visual interface to select the number of participant as well as the temporal and spatial distance. *SEE DESCRIPTION OF MENU INTERFACE*
-The output of the MENU_SRT function is displayed. The two speed options are defined in Speeds in seconds. in Subject, speed can be 0 or 1 and this is used to then index the value of Speeds that is used, thisvalue is stored in tps.
+-> I created an other separate file with a function to set up a visual interface to select the number of participant as well as the temporal and spatial distance. *SEE DESCRIPTION OF MENU INTERFACE BELOW*
+The menu interface gets displayed on screen. The two speed options are defined in Speeds in seconds. in Subject, speed can be 0 or 1 and this is used to then index the value of Speeds that is used, thisvalue is stored in tps.
 In Subject, the column close_spaced contains either 1 or 2. If the value is 1 then close_pics (short spatial distance) will be used, if the value is 2 then spaced_pics will be used.
 ```
 
@@ -391,3 +404,5 @@ def MENU_SRT(window):
     return RUN_menu()
 
 ```
+## Previous programming experience
+-> I had previously used R a little bit, to analyze behavioural data. I also used a little bit Matlab for data analysis as well. It as the first time that I programmed an experiment. 
