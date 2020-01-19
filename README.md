@@ -409,4 +409,10 @@ def MENU_SRT(window):
 
 ```
 ## Previous programming experience
--> I had previously used R a little bit, to analyze behavioural data. I also used a little bit Matlab for data analysis as well. It was the first time that I programmed an experiment and also the first time that I used Python.  
+-> I had previously used R a little bit, to analyze behavioural data. I also used a little bit Matlab for data analysis as well. It was the first time that I programmed an experiment and also the first time that I used Python. 
+
+-> It was complicated to study for this course while having a lot of other things to do for other courses, and programming the task was more difficult than I thought it would be. If I would have had more time I would have written an R script to analyze the data, after collecting data on many participants. 
+
+-> With this class I learned the basics of Python as well as Expyriment and Pygame.
+
+-> I think groups based on level should be implemented because eventhough you are really invested in helping, some of us are not comfortable with asking for help during the class when others go really fast and we are simply lost. Otherwise this class really taught me some Python language in a directly applied way which is great.
